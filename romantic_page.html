@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Your Romantic Surprise</title>
+    <style>
+        body {
+            background: #ffb6c1;
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            padding: 50px;
+        }
+        h1 {
+            color: #d13f3f;
+        }
+        .gif {
+            width: 700px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🥳 YOU SAID YES! 🥳</h1>
+    <p>See you tonight at 8PM at the cinema! Don't be late! 🍿🎬</p>
+    
+    <img class="gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHd2bjByNWc3d250cmRvcGt3cGxtMG00NHB0b3U0Z2pmZWVzNWt5aCZlcD12MV9pbnRlcm5naWZfYnlfaWQmY3Q9Zw/a0h7sAqON67nO/giphy.gif" alt="Celebration GIF">
+
+    <!-- Hidden audio element with autoplay -->
+    <audio id="autoAudio" autoplay loop>
+        <source src="great-success-borat.mp3" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+    <p>(No take-backs!)</p>
+
+    <script>
+        // Ensure the audio plays even if the browser blocks autoplay
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById("autoAudio");
+            audio.play().catch(error => {
+                console.log("Autoplay blocked! Waiting for user interaction...");
+                // Play audio after first user interaction
+                document.body.addEventListener('click', () => {
+                    audio.play();
+                }, { once: true });
+            });
+        });
+    </script>
+
+</body>
+</html>

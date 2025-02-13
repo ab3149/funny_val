@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Ali, Will You Be My Valentine? 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /* Video background */
+    #video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .container {
+      margin: 100px auto;
+      width: 400px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      padding: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #d13f3f;
+    }
+
+    p {
+      color: #333;
+      font-size: 18px;
+    }
+
+    .button-area {
+      margin-top: 30px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      transition: transform 0.3s ease;
+    }
+
+    #yes-btn {
+      background-color: #00ff40;
+      color: #fff;
+    }
+
+    #no-btn {
+      background-color: #f00038;
+      color: #333;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #yes-btn:hover {
+      background-color: #ff1493;
+    }
+
+    /* Explosion GIF styling */
+    #explosion {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video background -->
+  <video id="video-background" autoplay muted loop>
+    <source src="I Think You Should Leave with Tim Robinson - Door Scene.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="container">
+    <h1>I can't help it, I am French 🇫🇷 🤣</h1> 
+    <h1> Ali, Will You Be My Valentine? 💖</h1>
+    <h2> Bisous, Alex</h2>
+    <p>You can't click “No.” So you might as well say “Yes.”</p>
+    <div class="button-area">
+      <button id="yes-btn">YES!</button>
+      <button id="no-btn">NO!</button>
+    </div>
+  </div>
+
+  <!-- Explosion GIF (Hidden Initially) -->
+  <img id="explosion" src="https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif" alt="Explosion">
+
+  <script>
+    const yesBtn = document.getElementById('yes-btn');
+    const noBtn = document.getElementById('no-btn');
+    const explosion = document.getElementById('explosion');
+
+    // When the user clicks YES
+    yesBtn.addEventListener('click', function() {
+      // Hide everything except the explosion
+      document.querySelector('.container').style.display = 'none';
+      document.getElementById('video-background').pause(); // Stop background video
+      explosion.style.display = 'block'; // Show explosion GIF
+      
+      // Reset GIF by reloading its source
+      explosion.src = explosion.src; 
+
+      // Detect when GIF has finished playing
+      explosion.addEventListener('load', function() {
+        setTimeout(function() {
+          window.location.href = 'romantic_page.html'; // Redirect to romantic page
+        }, 2300); // Approximate length of the GIF (change if needed)
+      });
+    });
+
+    let hoverCount = 0; // Counter for "No" button hovers
+
+    // Create a GIF container (hidden initially)
+    const gifOverlay = document.createElement('div');
+    gifOverlay.style.position = "fixed";
+    gifOverlay.style.top = "0";
+    gifOverlay.style.left = "0";
+    gifOverlay.style.width = "100vw";
+    gifOverlay.style.height = "100vh";
+    gifOverlay.style.background = "rgba(0, 0, 0, 0.8)";
+    gifOverlay.style.display = "none"; // Hidden initially
+    gifOverlay.style.justifyContent = "center";
+    gifOverlay.style.alignItems = "center";
+    gifOverlay.style.flexDirection = "column";
+    gifOverlay.style.zIndex = "9999";
+
+    // Message text
+    const gifMessage = document.createElement('p');
+    gifMessage.innerText = "You really want to reject me that bad?";
+    gifMessage.style.color = "#fff";
+    gifMessage.style.fontSize = "24px";
+    gifMessage.style.marginBottom = "10px";
+
+    // Funny GIF
+    const funnyGif = document.createElement('img');
+    funnyGif.src = "https://tenor.com/fr/view/dog-awkward-awkward-dog-staring-dog-patchibana-gif-16057820146466131482.gif"; // Replace with any funny GIF
+    funnyGif.style.width = "300px";
+    funnyGif.style.borderRadius = "10px";
+
+    // Append elements to overlay
+    gifOverlay.appendChild(gifMessage);
+    gifOverlay.appendChild(funnyGif);
+    document.body.appendChild(gifOverlay);
+
+    function moveNoButton() {
+    const container = document.querySelector('.container');
+    const containerRect = container.getBoundingClientRect();
+    const offsetX = Math.random() * (containerRect.width - noBtn.offsetWidth);
+    const offsetY = Math.random() * (containerRect.height - noBtn.offsetHeight - 50) + 50;
+
+    noBtn.style.left = offsetX + 'px';
+    noBtn.style.top = offsetY + 'px';
+
+    // Increment hover counter
+    hoverCount++;
+
+    // After 4 tries, show funny GIF & message
+    if (hoverCount >= 4) {
+        gifOverlay.style.display = "flex"; // Show GIF overlay
+        hoverCount = 0; // **Reset counter immediately so it works again next time!**
+
+        // Hide GIF after 3 seconds
+        setTimeout(() => {
+        gifOverlay.style.display = "none";
+        }, 3000);
+    }
+    }
+
+    noBtn.addEventListener('mouseover', moveNoButton);
+
+    noBtn.addEventListener('click', function() {
+      alert("Haha, nice try! But NO still means YES! 😉");
+    });
+  </script>
+
+</body>
+</html>
